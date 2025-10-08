@@ -2,16 +2,19 @@
     {
         "id": 1,
         "titulo": "Don Quijote de la Mancha",
-        "contenido": "El viejito que se vuelve loco con el molino"
+        "contenido": "El viejito que se vuelve loco con el molino",
+        "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"
     },
     {
         "id": 2,
         "titulo": "El Hobbit",
-        "contenido": "Un pequeño que salva al mundo y se roba un anillo"
+        "contenido": "Un pequeño que salva al mundo y se roba un anillo",
+        "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png"
     },
     {
         "id": 3,
         "titulo": "La Biblia",
-        "contenido": "El pulento haciendo milagros"
+        "contenido": "El pulento haciendo milagros",
+        "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/7.png"
     }
 ]
