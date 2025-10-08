@@ -1,52 +1,63 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Card from './components/Card'
-import FormularioLibro from './components/FormularioLibro'
+import FormularioPokemon from './components/FormularioPokemon'
 
 function App() {
-  const [libros, setLibros] = useState([])
-  const [libroModificar, setLibroModificar] = useState(null)
+  const [pokemones, setPokemones] = useState([])
+  const [pokemonModificar, setPokemonModificar] = useState(null)
 
   //useEffect carga datos desde lugares externo:
   useEffect(()=>{
-    fetch("src/data/libros.json")
+    fetch("src/data/pokemones.json")
       .then((res)=>res.json())
-      .then((data)=>setLibros(data))
-      .catch((ex)=>console.error("Error al obtener libros:",ex))
+      .then((data)=>setPokemones(data))
+      .catch((ex)=>console.error("Error al obtener pokemones:",ex))
   },[])
 
-  const agregarLibro = (libro) =>{
-    setLibros( [...libros,libro] )
+  const agregarPokemon = (pokemon) =>{
+    //Se agregó validación para validar si existe el ID que se agrega
+    const pokemonExiste = pokemones.find(po => po.numero===pokemon.numero)
+    if (pokemonExiste){
+      alert("Pokemon ya existe!")
+      return;
+    }
+    setPokemones( [...pokemones,pokemon] )
   }
 
-  const eliminarLibro = (id)=>{
-    setLibros( libros.filter((li)=> li.id !== id) )
+  const eliminarPokemon = (numero)=>{
+    //Se agregó validación para eliminar o no
+    const resp = confirm(`¿Seguro que deseas eliminar el pokemon de número ${numero}?`)
+    if(resp){
+      setPokemones( pokemones.filter(po=> po.numero !== numero) )
+    }
   }
 
-  const editarLibro = (libroActualizado) => {
-    setLibros( libros.map(li => li.id===libroActualizado.id ? libroActualizado : li) )
+  const editarPokemon = (pokemonActualizado) => {
+    setPokemones( pokemones.map(po => po.numero===pokemonActualizado.numero ? pokemonActualizado : po) )
   }
 
   return (
     <div className='container mt-3'>
-      <h1>Formulario Ingreso libros</h1>
-      <FormularioLibro agregar={agregarLibro}
-        libroEditando={libroModificar} 
-        editar={editarLibro}
-        setLibroEditando={setLibroModificar}/>
+      <h1>Formulario Ingreso Pokemones</h1>
+      <FormularioPokemon agregar={agregarPokemon}
+        pokemonEditando={pokemonModificar} 
+        editar={editarPokemon}
+        setPokemonEditando={setPokemonModificar}/>
 
-      {libros.length === 0 && <p>No hay libros disponibles</p>}
-      {libros.length>5 && <p>Tienes una gran colección</p>}
+      {pokemones.length === 0 && <p>No hay pokemones disponibles</p>}
+      {pokemones.length>5 && <p>Tienes una gran colección</p>}
 
       <div className='row'>
         {
-          libros.map(libro => (
-            <div className='col-md-4' key={libro.id}>
-              <Card titulo={libro.titulo} 
-                contenido={libro.contenido}
-                imagen={libro.imagen}
-                eliminar={()=>eliminarLibro(libro.id)}
-                modificar={()=> setLibroModificar(libro)} />
+          pokemones.map(pokemon => (
+            <div className='col-md-4' key={pokemon.numero}>
+              <Card numero={pokemon.numero}
+                titulo={pokemon.titulo} 
+                contenido={pokemon.contenido}
+                imagen={pokemon.imagen}
+                eliminar={()=>eliminarPokemon(pokemon.numero)}
+                modificar={()=> setPokemonModificar(pokemon)} />
             </div>
           ))
         }

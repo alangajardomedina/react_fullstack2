@@ -3,6 +3,8 @@
 function Card(props){
     return (
         <div className="card mb-3" style={ {width:"18rem"} }>
+            {/*Se agrega header de la Card para mostrar el Número del Pokemon*/}
+            <h2 className="card-header">NÚMERO: {props.numero}</h2>
             {props.imagen && (
                 <img src={props.imagen} alt={props.titulo} className="card-img-top"/>
             )}
