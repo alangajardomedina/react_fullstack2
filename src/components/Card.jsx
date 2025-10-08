@@ -6,7 +6,11 @@ function Card(props){
             <div className="card-body">
                 <h3 className="card-title">{props.titulo}</h3>
                 <p className="card-text">{props.contenido}</p>
+                <div className="d-flex justify-content-around">
+                <button className="btn btn-warning" onClick={props.modificar}>✏️</button>
                 <button className="btn btn-danger" onClick={props.eliminar}>🗑️</button>
+
+                </div>
             </div>
         </div>
     )
