@@ -5,6 +5,7 @@ function FormularioPokemon( {agregar,pokemonEditando,editar,setPokemonEditando} 
     const [numero,setNumero] = useState("")
     const [titulo,setTitulo] = useState("")
     const [contenido,setContenido] = useState("")
+    const [error, setError] = useState("")
     
     useEffect(() => {
         if(pokemonEditando){
@@ -16,7 +17,11 @@ function FormularioPokemon( {agregar,pokemonEditando,editar,setPokemonEditando} 
 
     const handleSubmit = (event)=>{
         event.preventDefault()
-        if(!numero || !titulo || !contenido) return
+        if(!numero || !titulo || !contenido){
+            setError("Todos los campos deben tener información")
+            return
+        }
+        setError("")
         
         if(pokemonEditando){
             editar( {...pokemonEditando,titulo,contenido} )
@@ -34,6 +39,7 @@ function FormularioPokemon( {agregar,pokemonEditando,editar,setPokemonEditando} 
 
     return (
         <form className="mb-4" onSubmit={handleSubmit}>
+            {error && <div className="alert alert-danger">{error}</div>}
             {/* Se agrega un nuevo input para ingresar el NUMERO del pokemon y se le entrega valor */}
             <input className="form-control mb-2"
              type="number"
